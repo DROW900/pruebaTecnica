@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Usuarios registrados";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Usuarios registrados</h1>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id Usuario</th>
+                <th>Nombre</th>
+                <th>Salario</th>
+                <th>Fecha de ingreso</th>
+            </tr>
+        </thead>
+        @{
+            if(ViewBag.Usuarios != null)
+            {
+                foreach(var usuario in ViewBag.Usuarios)
+                {
+                    <tr>
+                        <td>@usuario.IdUsuario</td>
+                        <td>@usuario.Nombre @usuario.Paterno @usuario.Materno</td>
+                        <td>@usuario.Sueldo</td>
+                        <td>@usuario.FechaIngreso</td>
+                        <td>
+                            <button value="@usuario.IdUsuario" class="btn btn-primary" data-toggle="modal" data-target="#ModalSueldo" onclick="limpiarModal(this.value);">Actualizar Sueldo</button>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </table>
+    <br />
+
+    <div>
+        <button class="btn btn-secondary" onclick="generarCSV();">Generar Archivo CSV</button>
+    </div>
+
+    <div class="modal fade" id="ModalSueldo" tabindex="-1" aria-labelledby="ModalSueldo" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Actualizar Sueldo</h5>
+                    <button onclick="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input id="inputIdSueldo" hidden type="number" name="name" value="0"/>
+                    <label for="sueldo">Nuevo Sueldo: </label>
+                    <input id="inputSueldo" name="sueldo" type="number" value="0"/>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="cerrarModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button onclick="guardarSueldo()" type="button" class="btn btn-primary" value="0">Guardar Sueldo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
